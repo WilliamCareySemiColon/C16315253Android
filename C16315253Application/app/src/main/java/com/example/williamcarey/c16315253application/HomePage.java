@@ -69,8 +69,8 @@ public class HomePage extends Activity implements View.OnClickListener,
         //connecting the spinner
         dropdown = findViewById(R.id.spinnerAccDetails);
 
-         dropDownAdapt = ArrayAdapter.createFromResource(this,R.array.user_details,
-                android.R.layout.simple_spinner_dropdown_item);
+        dropDownAdapt = ArrayAdapter.createFromResource(this,R.array.user_details,
+               android.R.layout.simple_spinner_dropdown_item);
         dropDownAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         dropdown.setAdapter(dropDownAdapt);
