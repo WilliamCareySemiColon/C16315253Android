@@ -3,6 +3,6 @@
     <string-array name="user_details">
         <item> </item>
         <item>logout</item>
-        <item>Modify Account Details</item>
+        <item>View Account Details</item>
     </string-array>
 </resources>

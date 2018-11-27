@@ -1,6 +1,7 @@
 package com.example.williamcarey.c16315253application;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -108,9 +109,17 @@ public class HomePage extends Activity implements View.OnClickListener,
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         String selection = parent.getItemAtPosition(pos).toString();
-        if(selection != " ")
-            Toast.makeText(this,
-                    "The item selected is "+ selection, Toast.LENGTH_SHORT).show();
+
+        switch(selection)
+        {
+            case "logout":
+                finish();
+                break;
+            case "View Account Details":
+                Intent intent = new Intent(HomePage.this,ModifyAccountDetails.class);
+                startActivity(intent);
+                break;
+        }
 
     }
 
