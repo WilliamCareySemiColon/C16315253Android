@@ -4,25 +4,33 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class HomePage extends Activity implements View.OnClickListener{
+public class HomePage extends Activity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     //buttons to do with this activity
     Button search, cancel, viewItemsBought, searchKeyWord;
     //Edittext to capture the data inside the searchbar
     EditText searchBar;
     //connecting to the spinner
-    Spinner dropdwon;
+    Spinner dropdown;
 
     //button array to set all the colours
     ArrayList<Button> buttons;
+    //array of buttons to be instanated into the the dropdown list
+    Button[] spinbuttons;
+    //way to access the data
+    ArrayAdapter<CharSequence> dropDownAdapt;
 
     //colours to work with
     private int buttonColorSet, textFieldColorSet;
@@ -59,7 +67,19 @@ public class HomePage extends Activity implements View.OnClickListener{
         searchKeyWord.setOnClickListener(this);
         buttons.add(searchKeyWord);
         //connecting the spinner
-        dropdwon = findViewById(R.id.spinnerAccDetails);
+        dropdown = findViewById(R.id.spinnerAccDetails);
+
+         dropDownAdapt = ArrayAdapter.createFromResource(this,R.array.user_details,
+                android.R.layout.simple_spinner_dropdown_item);
+        dropDownAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        dropdown.setAdapter(dropDownAdapt);
+        dropdown.setOnItemSelectedListener(this);
+
+       /* Button logout = new Button(getApplicationContext());
+        Button modifyDetails = new Button((getApplicationContext()));
+        spinbuttons = new Button[] {logout, modifyDetails};*/
+
 
         //setting the colour of the buttons
         for(Button b: buttons)
@@ -80,4 +100,20 @@ public class HomePage extends Activity implements View.OnClickListener{
         Toast.makeText(getApplicationContext(),
                 "You pressed the " + statement + " button",Toast.LENGTH_LONG).show();
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        String selection = parent.getItemAtPosition(pos).toString();
+        if(selection != " ")
+            Toast.makeText(this,
+                    "The item selected is "+ selection, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
 }
