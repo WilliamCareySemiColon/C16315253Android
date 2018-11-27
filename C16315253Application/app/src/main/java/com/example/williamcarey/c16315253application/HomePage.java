@@ -69,6 +69,10 @@ public class HomePage extends Activity implements View.OnClickListener,
         //connecting the spinner
         dropdown = findViewById(R.id.spinnerAccDetails);
 
+        /*******************************************************************************
+         * logic came from site
+         * https://developer.android.com/guide/topics/ui/controls/spinner#java
+         ******************************************************************************/
         dropDownAdapt = ArrayAdapter.createFromResource(this,R.array.user_details,
                android.R.layout.simple_spinner_dropdown_item);
         dropDownAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,16 +80,14 @@ public class HomePage extends Activity implements View.OnClickListener,
         dropdown.setAdapter(dropDownAdapt);
         dropdown.setOnItemSelectedListener(this);
 
-       /* Button logout = new Button(getApplicationContext());
-        Button modifyDetails = new Button((getApplicationContext()));
-        spinbuttons = new Button[] {logout, modifyDetails};*/
+        /********************************************************************************/
 
 
         //setting the colour of the buttons
         for(Button b: buttons)
             b.setBackgroundColor(buttonColorSet);
 
-    }
+    }//end oncreate
     public void onClick(View view)
     {
         Button sample = (Button) view;
