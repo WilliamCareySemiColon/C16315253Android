@@ -1,12 +1,16 @@
 package com.example.williamcarey.c16315253application;
 
 import android.content.Context;
+import android.database.Cursor;
 
 public class Person {
+    //person details inside the database
     private String name,address,username,email, password;
 
     //allow connection to the database
     private MusicProductDB BEDB;
+
+    private Cursor people;
     //variable to capture the context of the varaible
     Context Databaseapplication;
 
@@ -31,6 +35,15 @@ public class Person {
         newPerson = BEDB.insertPerson(this.username,this.password,this.name,
                 this.address,this.email);
     }//end register constructor
+
+    public Person(String username, Context context)
+    {
+        this.Databaseapplication = context;
+        BEDB = new MusicProductDB(this.Databaseapplication);
+        BEDB.open();
+
+        people = BEDB.getPerson(username);
+    }
 
    /* public BackEndDatabase retDB() {
         return BEDB;

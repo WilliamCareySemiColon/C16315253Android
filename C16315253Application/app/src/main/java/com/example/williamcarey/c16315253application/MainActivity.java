@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements View.OnClickListener
         setContentView(R.layout.activity_main);
 
         buttonColorSet = getColor(R.color.black);
-        textFieldColorSet = getColor(R.color.white);
+        textFieldColorSet = getColor(R.color.forestGreen);
 
         //BEDB = new MusicProductDB(getApplicationContext());
         //BEDB.open();
@@ -46,9 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener
         };
 
         for(EditText t: textfields)
-        {
             t.setTextColor(textFieldColorSet);
-        }
 
         register = (Button)findViewById(R.id.register);
         register.setBackgroundColor(buttonColorSet);

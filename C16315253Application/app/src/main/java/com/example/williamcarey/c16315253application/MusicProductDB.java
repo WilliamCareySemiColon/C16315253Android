@@ -6,11 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 
 public class MusicProductDB {
 
     //database working with and the version we are working with
-    private static final String DATABASE_NAME 	= "MusicSite";
+    private static final String DATABASE_NAME 	= "MusicProductSite";
     private static final int DATABASE_VERSION 	= 1;
     //Person inside the database
     private static final String DATABASE_TABLE_PERSON = "Person";
@@ -20,6 +21,7 @@ public class MusicProductDB {
     private static final String KEY_NAME 	    = "name";
     private static final String KEY_ADDRESS 	= "address";
     private static final String KEY_EMAIL	    = "email";
+    private static final String KEY_PIC = "profilePic";
     //Music table inside the database
     private static final String DATABASE_TABLE_PRODUCT = "Product";
     //associated columns
@@ -55,7 +57,7 @@ public class MusicProductDB {
             "create table Person( _id integer primary key autoincrement," +
                     "username text primary key not null,password text not null," +
                     " name text not null,email text not null," +
-                    " address text not null,profilePic BLOB NOT NULL);";
+                    " address text not null,profilePic BLOB);";
 
     private static final String DATABASE_CREATE2 =
             "create table Product( _id integer primary key not null, " +
@@ -151,6 +153,7 @@ public class MusicProductDB {
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_ADDRESS, addressLine);
         initialValues.put(KEY_EMAIL,email);
+        //initialValues.put(KEY_PIC,null);
         return db.insert(DATABASE_TABLE_PERSON, null, initialValues);
     }
 
@@ -197,13 +200,14 @@ public class MusicProductDB {
 
     //
     public boolean updatePerson(String username, String password, String name,
-                                String addressLine, String email)
+                                String addressLine, String email, Bitmap profilePic)
     {
         ContentValues args = new ContentValues();
         args.put(KEY_PASSWORD, password);
         args.put(KEY_NAME, name);
         args.put(KEY_EMAIL,email);
         args.put(KEY_ADDRESS,addressLine);
+        //args.put(KEY_PIC,profilePic);
         return db.update(DATABASE_TABLE_PERSON, args,
                 KEY_USERNAME + "=" + username, null) > 0;
     }
