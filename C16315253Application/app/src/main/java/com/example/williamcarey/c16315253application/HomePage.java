@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
@@ -17,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class HomePage extends Activity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener {
+        AdapterView.OnItemSelectedListener{
 
     //buttons to do with this activity
     Button search, cancel, viewItemsBought, searchKeyWord;
@@ -32,6 +33,14 @@ public class HomePage extends Activity implements View.OnClickListener,
     Button[] spinbuttons;
     //way to access the data
     ArrayAdapter<CharSequence> dropDownAdapt;
+
+    //sample infomation to work with
+    ArrayList<String> sample;
+    String [] samples;
+
+    //listview to work with
+    ListView list;
+    ArrayAdapter listItems;
 
     //colours to work with
     private int buttonColorSet, textFieldColorSet;
@@ -69,6 +78,8 @@ public class HomePage extends Activity implements View.OnClickListener,
         buttons.add(searchKeyWord);
         //connecting the spinner
         dropdown = findViewById(R.id.spinnerAccDetails);
+        //listview
+        list = findViewById(R.id.listView);
 
         /*******************************************************************************
          * logic came from site
@@ -87,6 +98,45 @@ public class HomePage extends Activity implements View.OnClickListener,
         //setting the colour of the buttons
         for(Button b: buttons)
             b.setBackgroundColor(buttonColorSet);
+
+        //sample info
+        sample = new ArrayList<String>();
+
+        for(int i = 0; i < 50; i++)
+        {
+            String j =  (((char) i) + " ");
+            sample.add(j);
+        }
+
+        samples = new String[sample.size()];
+
+        for(int i = 0; i < sample.size(); i++)
+            samples[i] = sample.get(i);
+
+        listItems = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,samples);
+
+        list.setAdapter(listItems);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition     = position;
+
+                // ListView Clicked item value
+                String  itemValue =  listItems.getItem(position).toString();
+
+                // Show Alert
+                Toast.makeText(getApplicationContext(),
+                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        .show();
+
+            }
+
+        });
+
 
     }//end oncreate
     public void onClick(View view)
