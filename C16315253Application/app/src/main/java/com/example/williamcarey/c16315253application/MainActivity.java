@@ -80,10 +80,6 @@ public class MainActivity extends Activity implements View.OnClickListener
                     textfields[6].getText().toString(),
                     getApplicationContext());*/
 
-            Toast.makeText(getApplicationContext(),
-                    "You have pressed the register button",
-                    Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(MainActivity.this,HomePage.class);
             startActivity(intent);
         }

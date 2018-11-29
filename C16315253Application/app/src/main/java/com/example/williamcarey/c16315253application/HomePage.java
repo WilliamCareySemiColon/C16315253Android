@@ -24,13 +24,11 @@ public class HomePage extends Activity implements View.OnClickListener,
     Button search, cancel, viewItemsBought, searchKeyWord;
     //Edittext to capture the data inside the searchbar
     EditText searchBar;
-    //connecting to the spinner
+    //connecting to the dropdown menu
     Spinner dropdown;
 
     //button array to set all the colours
     ArrayList<Button> buttons;
-    //array of buttons to be instanated into the the dropdown list
-    Button[] spinbuttons;
     //way to access the data
     ArrayAdapter<CharSequence> dropDownAdapt;
 
@@ -43,7 +41,7 @@ public class HomePage extends Activity implements View.OnClickListener,
     ArrayAdapter listItems;
 
     //colours to work with
-    private int buttonColorSet, textFieldColorSet;
+    private int buttonColorSet;
 
     //plumbing code to get the look of the layout
     /*private Cursor c;
@@ -58,7 +56,6 @@ public class HomePage extends Activity implements View.OnClickListener,
 
         //setting the colours
         buttonColorSet = getColor(R.color.black);
-        textFieldColorSet = getColor(R.color.white);
 
         buttons = new ArrayList<Button>();
         //setting all the buttons
@@ -115,6 +112,7 @@ public class HomePage extends Activity implements View.OnClickListener,
         for(int i = 0; i < sample.size(); i++)
             samples[i] = sample.get(i);
 
+        //working with displaying the information
         listItems = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,samples);
 
@@ -123,24 +121,18 @@ public class HomePage extends Activity implements View.OnClickListener,
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                // ListView Clicked item index
-                int itemPosition     = position;
-
                 // ListView Clicked item value
                 String  itemValue =  listItems.getItem(position).toString();
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-
+                        "Position :"+position+"  ListItem : " +itemValue,
+                        Toast.LENGTH_LONG).show();
             }
-
-        });
-
-
+        });//end onSetItemClickListener()
     }//end oncreate
+
+    //the listener for the buttons
     public void onClick(View view)
     {
         Button sample = (Button) view;
@@ -156,12 +148,10 @@ public class HomePage extends Activity implements View.OnClickListener,
                 "You pressed the " + statement + " button",Toast.LENGTH_LONG).show();
     }
 
+    //the listener for the dropdown menu
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
         String selection = parent.getItemAtPosition(pos).toString();
-
         switch(selection)
         {
             case "logout":
@@ -172,11 +162,9 @@ public class HomePage extends Activity implements View.OnClickListener,
                 startActivity(intent);
                 break;
         }
-
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
-
-}
+}//end class HomePage

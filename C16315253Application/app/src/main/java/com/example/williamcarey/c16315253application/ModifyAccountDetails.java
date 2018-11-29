@@ -1,6 +1,8 @@
 package com.example.williamcarey.c16315253application;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,11 @@ public class ModifyAccountDetails extends Activity implements View.OnClickListen
     private EditText[] personDetails;
     //colours to work with
     private int buttonColorSet, textFieldColorSet;
+    //allow for pictures to be instaianted
+    //camera object
+    Camera camera;
+    //pictures
+    Bitmap profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
