@@ -99,10 +99,12 @@ public class HomePage extends Activity implements View.OnClickListener,
         for(Button b: buttons)
             b.setBackgroundColor(buttonColorSet);
 
+        //the start of getting sample info for the listview
+
         //sample info
         sample = new ArrayList<String>();
 
-        for(int i = 0; i < 50; i++)
+        for(int i = 48; i < 91; i++)
         {
             String j =  (((char) i) + " ");
             sample.add(j);
