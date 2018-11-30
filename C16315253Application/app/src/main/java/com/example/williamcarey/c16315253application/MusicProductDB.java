@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 public class MusicProductDB {
 
@@ -48,6 +49,11 @@ public class MusicProductDB {
     private static final String KEY_FAMILY = "family";
     private static final String KEY_SOURCEDFROM = "sourcedFrom";
     private static final String KEY_COUNTRYORIGIN = "countryOrigin";
+    //desiredProduct details
+    private static final String DATABASE_TABLE_DP = "DesiredProduct";
+    //assiocated tables
+    private static final String KEY_STATUS = "status";
+    private static final String KEY_DESIREDPRO = "desiredID";
 
 
     /*********************************************************************
@@ -64,7 +70,7 @@ public class MusicProductDB {
                     "name text not null, brand text not null, " +
                     "keyword text not null, type text not null" +
                     "dateReleased text not null, description text not null," +
-                    "gerneralReview text not null, isBought integer not null);";
+                    "gerneralReview text not null);";
 
     private static final String DATABASE_CREATE3 =
             "create table Instruments ( _id integer primary key not null, " +
@@ -79,10 +85,16 @@ public class MusicProductDB {
             "create table CDRecord ( _id integer primary key not null, " +
                     "genre text not null);";
 
+    private static final String DATABASE_CREATE6 =
+            "create table DesiredProduct( desiredID integer primary key," +
+            "status text not null, username text foreign key," +
+            "_id integer foreign key);";
+
     //sql statement to hold all the others into one statement
     private static final String DATABASE_CREATE =
             DATABASE_CREATE1 + DATABASE_CREATE2 + DATABASE_CREATE3
-                    + DATABASE_CREATE4 + DATABASE_CREATE5;
+                    + DATABASE_CREATE4 + DATABASE_CREATE5
+            + DATABASE_CREATE6;
 
     /****************************************************************************/
 
@@ -93,15 +105,16 @@ public class MusicProductDB {
     // Constructor
     public MusicProductDB(Context ctx)
     {
-        //
+        Log.e("Inside the MuicProductDB", "MusicProductDB: " );
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
     }
 
-    public MusicProductDB open() throws SQLException
+    public void open() throws SQLException
     {
+        Log.e("Creating the writable database", "MusicProductDB: " );
         db = DBHelper.getWritableDatabase();
-        return this;
+        //return this;
     }
 
     public void close()

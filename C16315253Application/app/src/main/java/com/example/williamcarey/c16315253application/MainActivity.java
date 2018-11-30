@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,8 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener
         buttonColorSet = getColor(R.color.black);
         textFieldColorSet = getColor(R.color.forestGreen);
 
-        //BEDB = new MusicProductDB(getApplicationContext());
-        //BEDB.open();
+        BEDB = new MusicProductDB(getApplicationContext());
+        BEDB.open();
 
         textfields = new EditText[] {
                 findViewById(R.id.name),
@@ -71,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener
         }
         else
         {
+            Log.e("Creating new person and db", "onClick: database creation method");
             /*person = new Person(textfields[0].getText().toString(),
                     textfields[1].getText().toString(),
                     textfields[2].getText().toString(),

@@ -220,6 +220,7 @@ public class ModifyAccountDetails extends Activity implements View.OnClickListen
                     final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                     profilePicture.setImageBitmap(selectedImage);
+                    profilePicture.setRotation(270);
                 }
                 catch (FileNotFoundException e) {
                     e.printStackTrace();
