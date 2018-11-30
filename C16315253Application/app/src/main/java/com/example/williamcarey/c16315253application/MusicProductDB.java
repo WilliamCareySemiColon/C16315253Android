@@ -12,7 +12,7 @@ import android.util.Log;
 public class MusicProductDB {
 
     //database working with and the version we are working with
-    private static final String DATABASE_NAME 	= "MusicProductSite";
+    private static final String DATABASE_NAME 	= "MusicProductS";
     private static final int DATABASE_VERSION 	= 1;
     //Person inside the database
     private static final String DATABASE_TABLE_PERSON = "Person";
@@ -105,14 +105,14 @@ public class MusicProductDB {
     // Constructor
     public MusicProductDB(Context ctx)
     {
-        Log.e("Inside the MuicProductDB", "MusicProductDB: " );
+        Log.e("Inside the MusicProductDB Creation", "MusicProductDB: " );
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
     }
 
     public void open() throws SQLException
     {
-        Log.e("Creating the writable database", "MusicProductDB: " );
+        Log.e("Attaching the writable database", "MusicProductDB: " );
         db = DBHelper.getWritableDatabase();
         //return this;
     }
@@ -127,6 +127,7 @@ public class MusicProductDB {
     {
         DatabaseHelper(Context context)
         {
+
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
