@@ -44,10 +44,11 @@ public class HomePage extends Activity implements View.OnClickListener,
     private int buttonColorSet;
 
     //plumbing code to get the look of the layout
-    /*private Cursor c;
+    private Cursor c;
     private String [] dbField;
     private int [] ids;
-    private SimpleCursorAdapter myAdapter;*/
+    private SimpleCursorAdapter myAdapter;
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,17 @@ public class HomePage extends Activity implements View.OnClickListener,
             b.setBackgroundColor(buttonColorSet);
 
         //the start of getting sample info for the listview
+
+        /*******************************************************
+         * Tried to get content from database - didn't have time
+        dbField = new String[] {"name"};
+        ids = new int[]{R.id.productItem};
+        product = new Product(getApplicationContext());
+        c = product.getAllProducts();
+
+         myAdapter = new SimpleCursorAdapter(this, R.layout.row,
+         c, dbField, ids,0);
+        *******************************************************/
 
         //sample info
         sample = new ArrayList<String>();

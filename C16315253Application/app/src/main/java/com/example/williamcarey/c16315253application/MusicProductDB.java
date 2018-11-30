@@ -34,7 +34,6 @@ public class MusicProductDB {
     private static final String KEY_ID = "_id";
     private static final String KEY_DESC = "description";
     private static final String KEY_REVIEW = "generalReview";
-    private static final String KEY_BOUGHT = "isBought";
     //table media takes after Product
     private static final String DATABASE_TABLE_MEDIA = "Media";
     //associated column
@@ -61,16 +60,16 @@ public class MusicProductDB {
      ****************************************************************/
     private static final String DATABASE_CREATE1 =
             "create table Person( _id integer primary key autoincrement," +
-                    "username text primary key not null,password text not null," +
+                    "username text unique not null,password text not null," +
                     " name text not null,email text not null," +
                     " address text not null,profilePic BLOB);";
 
     private static final String DATABASE_CREATE2 =
-            "create table Product( _id integer primary key not null, " +
+            "create table Product( _id integer primary key autoincrement, " +
                     "name text not null, brand text not null, " +
-                    "keyword text not null, type text not null" +
-                    "dateReleased text not null, description text not null," +
-                    "gerneralReview text not null);";
+                    "keyword text not null, type text not null," +
+                    "dateReleased text not null, price float," +
+                    " description text not null,gerneralReview text not null);";
 
     private static final String DATABASE_CREATE3 =
             "create table Instruments ( _id integer primary key not null, " +
@@ -86,9 +85,10 @@ public class MusicProductDB {
                     "genre text not null);";
 
     private static final String DATABASE_CREATE6 =
-            "create table DesiredProduct( desiredID integer primary key," +
-            "status text not null, username text foreign key," +
-            "_id integer foreign key);";
+            "create table DesiredProduct( desiredID integer primary key autoincrement," +
+            "status text not null, username text ,_id integer, " +
+                    "foreign key (username) references Person(username)," +
+                    "foreign key (_id) references Product(_id) );";
 
     //sql statement to hold all the others into one statement
     private static final String DATABASE_CREATE =
@@ -151,7 +151,40 @@ public class MusicProductDB {
             // dB structure change..
 
         }
+
+
     }   // end nested class
+
+    /***************************************************************************
+     * Getting the creation of all the database
+     **************************************************************************/
+    public long createProductTable(String name)
+    {
+        String one = "The first", two = "The second", three = "The third",
+                four = "The fourth",five = "The fifth";
+        ContentValues initialValues = new ContentValues();
+
+        initialValues.put(KEY_NAME, name);
+        initialValues.put(KEY_BRAND,name);
+        initialValues.put(KEY_WORD,name);
+        initialValues.put(KEY_TYPE,name);
+        initialValues.put(KEY_DATERELEASED,name);
+        initialValues.put(KEY_PRICE,0.00);
+        initialValues.put(KEY_DESC,name);
+        initialValues.put(KEY_REVIEW,name);
+
+        return db.insert(DATABASE_TABLE_PRODUCT, null, initialValues);
+    }
+
+    public void recreateProduct()
+    {
+        db.execSQL("DROP TABLE PRODUCT");
+        db.execSQL(DATABASE_CREATE2);
+    }
+
+    /***************************************************************************
+     *
+     **************************************************************************/
 
     /***************************************************************
      * Database connections to get access to the person content
@@ -234,16 +267,15 @@ public class MusicProductDB {
     {
         return db.query(DATABASE_TABLE_PRODUCT, new String[]
                         {
+                                KEY_ID,
                                 KEY_NAME,
                                 KEY_BRAND,
                                 KEY_WORD,
                                 KEY_TYPE,
                                 KEY_DATERELEASED,
                                 KEY_PRICE,
-                                KEY_ID,
                                 KEY_DESC,
-                                KEY_REVIEW,
-                                KEY_BOUGHT
+                                KEY_REVIEW
                         },
                 null, null, null, null, null);
     }
@@ -261,8 +293,7 @@ public class MusicProductDB {
                                         KEY_PRICE,
                                         KEY_ID,
                                         KEY_DESC,
-                                        KEY_REVIEW,
-                                        KEY_BOUGHT
+                                        KEY_REVIEW
                                 },
                         KEY_ID + "=" + id,
                         null, null, null, null, null);
@@ -285,7 +316,6 @@ public class MusicProductDB {
         args.put(KEY_WORD,keyword); args.put(KEY_TYPE,type);
         args.put(KEY_DATERELEASED,dateReleased);
         args.put(KEY_PRICE,price); args.put(KEY_DESC,desc);
-        args.put(KEY_REVIEW,review); args.put(KEY_BOUGHT,isB);
         return db.update(DATABASE_TABLE_PRODUCT, args,
                 KEY_ID + "=" + id, null) > 0;
     }

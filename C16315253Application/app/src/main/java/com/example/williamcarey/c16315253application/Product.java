@@ -1,6 +1,7 @@
 package com.example.williamcarey.c16315253application;
 
 import android.content.Context;
+import android.database.Cursor;
 
 public class Product {
     //fields name for the products
@@ -15,6 +16,9 @@ public class Product {
     private MusicProductDB BEDB;
     //variable to capture the context of the varaible
     Context Databaseapplication;
+
+    //cursor object
+    Cursor c;
 
     //autogenerate the id through the class itself
     private static int idgenerate = 1;
@@ -133,11 +137,23 @@ public class Product {
         BEDB.open();
     }
 
-    //return a way to get access at the contents of the database
-    /*public Cursor getAllProducts()
+    public Product(Context context)
     {
+        //getting the context
+        Databaseapplication = context;
 
-    }*/
+        BEDB = new MusicProductDB(Databaseapplication);
+        BEDB.open();
+    }
+    //return a way to get access at the contents of the database
+    public Cursor getAllProducts()
+    {
+        //c = BEDB.getAllProduct();
+        //return c;
+        return BEDB.getAllProduct();
+    }
+
+
 
     //planned methods - may not be implemented in this version
 

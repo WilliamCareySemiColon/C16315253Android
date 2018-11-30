@@ -25,6 +25,12 @@ public class MainActivity extends Activity implements View.OnClickListener
     //database variable
     private MusicProductDB BEDB;
 
+    /**************************************************************************************
+
+    //tem int array
+    private long [] arr;
+     ***************************************************************************************/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +41,48 @@ public class MainActivity extends Activity implements View.OnClickListener
 
         BEDB = new MusicProductDB(getApplicationContext());
         BEDB.open();
+        /**************************************************************************************
 
+        arr = new long[100];
+
+        //storing temp variable
+        for (int i = 0; i < 100; i++)
+        {
+            String one = "The first", two = "The second", three = "The third",
+                    four = "The fourth",five = "The fifth";
+
+            int j = i % 5;
+            switch(j)
+            {
+                case 0:
+                {
+                    arr[i] = BEDB.createProductTable(one);
+                    break;
+                }
+                case 1:
+                {
+                    arr[i] = BEDB.createProductTable(two);
+                    break;
+                }
+                case 2:
+                {
+                    arr[i] = BEDB.createProductTable(three);
+                    break;
+                }
+                case 3:
+                {
+                    arr[i] = BEDB.createProductTable(four);
+                    break;
+                }
+                case 4:
+                {
+                    arr[i] = BEDB.createProductTable(five);
+                    break;
+                }
+            }
+        }
+
+        ***************************************************************************************/
         textfields = new EditText[] {
                 findViewById(R.id.name),
                 findViewById(R.id.address1),
@@ -73,14 +120,14 @@ public class MainActivity extends Activity implements View.OnClickListener
         else
         {
             Log.e("Creating new person and db", "onClick: database creation method");
-            /*person = new Person(textfields[0].getText().toString(),
+            person = new Person(textfields[0].getText().toString(),
                     textfields[1].getText().toString(),
                     textfields[2].getText().toString(),
                     textfields[3].getText().toString(),
                     textfields[4].getText().toString(),
                     textfields[5].getText().toString(),
                     textfields[6].getText().toString(),
-                    getApplicationContext());*/
+                    getApplicationContext());
 
             Intent intent = new Intent(MainActivity.this,HomePage.class);
             startActivity(intent);
