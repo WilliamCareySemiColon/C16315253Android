@@ -18,6 +18,45 @@ public class Person {
     //insertion of data into the database
     long newPerson;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     //register constructor
     public Person(String name, String address1, String address2,String address3,
                   String email,String username, String password, Context passed)
@@ -46,6 +85,11 @@ public class Person {
         BEDB.open();
 
         people = BEDB.getPerson(username);
+        this.name = people.getString(people.getColumnIndex("name"));
+        this.address = people.getString(people.getColumnIndex("address"));
+        this.email = people.getString(people.getColumnIndex("email"));
+        this.password = people.getString(people.getColumnIndex("password"));
+        this.username = people.getString(people.getColumnIndex("username"));
     }
 
    /* public BackEndDatabase retDB() {

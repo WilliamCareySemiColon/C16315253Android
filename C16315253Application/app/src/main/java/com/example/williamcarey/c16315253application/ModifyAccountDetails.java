@@ -185,6 +185,17 @@ public class ModifyAccountDetails extends Activity implements View.OnClickListen
                 break;
             }
 
+            case R.id.getDetails:
+            {
+                String usernamePassed = username.getText().toString();
+                Person p = new Person(usernamePassed,getApplicationContext());
+                personDetails[0].setText(p.getName());
+                personDetails[1].setText(p.getAddress());
+                personDetails[2].setText(p.getEmail());
+                personDetails[3].setText(p.getPassword());
+                break;
+            }
+
             /***************************************************************************************
              * Had plans to take pictures but didn't have the time to implement fully
             case R.id.takePic:
